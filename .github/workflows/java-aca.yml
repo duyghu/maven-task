@@ -60,14 +60,14 @@ jobs:
       - name: Ensure resource group exists
         run: |
           az group create \
-            --name ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --location ${{ secrets.AZURE_LOCATION }}
+            --name my-java-rg \
+            --location westeurope
 
       - name: Deploy to Azure Container Apps
         uses: azure/container-apps-deploy-action@v1
         with:
-          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          containerAppName: ${{ secrets.AZURE_CONTAINER_APP_NAME }}
+          resourceGroup: my-java-rg
+          containerAppName: my-java-maven-app
           imageToDeploy: docker.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
           registryServer: docker.io
           registryUsername: ${{ secrets.DOCKER_USERNAME }}
